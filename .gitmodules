@@ -1,0 +1,3 @@
+[submodule "external/subfv-core"]
+	path = external/subfv-core
+	url = git@github.com:vdelmas/subfv-core.git
