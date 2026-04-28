@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(subfv-euler Fortran)
 
 find_package(MPI REQUIRED)
-
-add_subdirectory(external/subfv-core)
+find_package(subfvcore REQUIRED)
 
 add_executable(euler
   src/main.F90
@@ -14,10 +13,6 @@ add_executable(euler
 )
 
 target_link_libraries(euler
-  subfvcore
+  subfvcore::subfvcore
   MPI::MPI_Fortran
-)
-
-target_include_directories(euler PRIVATE
-  ${CMAKE_BINARY_DIR}/mod
 )
