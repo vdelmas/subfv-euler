@@ -1,7 +1,7 @@
 module io_module
-  use precision_module
-  use mesh_module
-  use mpi_module
+  use subfv_precision_module
+  use subfv_mesh_module
+  use subfv_mpi_module
   implicit none
 
 contains
@@ -110,7 +110,7 @@ contains
     use mpi
     use global_data_module
     use euler_module, only: sol_isentropic_vortex, conserv_to_primit, compute_nodal_grad
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -548,7 +548,7 @@ contains
       sol, grad, residu, u_nodal)
     use global_data_module
     use euler_module, only: sol_isentropic_vortex, conserv_to_primit, compute_nodal_grad
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -1088,7 +1088,7 @@ contains
   end subroutine compute_error_isentropic
 
   subroutine print_send_recv_info(mpi_send_recv)
-    use mpi_module
+    use subfv_mpi_module
     implicit none
 
     type(mpi_send_recv_type), intent(in) :: mpi_send_recv
@@ -1187,7 +1187,7 @@ contains
       sol, grad, residu)
     use global_data_module
     use euler_module, only: sol_isentropic_vortex, conserv_to_primit
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -1468,7 +1468,7 @@ contains
 
   subroutine write_sol_meta_pvtu(filename, iaff_char)
     use mpi
-    use mpi_module
+    use subfv_mpi_module
     use global_data_module, only: second_order
     implicit none
 
@@ -1546,9 +1546,9 @@ contains
     use global_data_module, only: compute_coeffs, coeffs_surf, &
       pinf, rhoinf, vinf, Cv_p, gamma
     use mpi
-    use mpi_module
+    use subfv_mpi_module
     use euler_module, only: conserv_to_primit
-    use linear_solver_module, only: lu_inverse, tensor_product
+    use subfv_linear_solver_module, only: lu_inverse, tensor_product
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -1763,7 +1763,7 @@ contains
 
   subroutine write_sol_meta_pvtu_coeffs(filename, iaff_char)
     use mpi
-    use mpi_module
+    use subfv_mpi_module
     use global_data_module, only: second_order
     implicit none
 
@@ -1814,7 +1814,7 @@ contains
 
   subroutine write_cell_size_dat(filename, mesh, sol, grad, mpi_send_recv)
     use mpi
-    use mpi_module
+    use subfv_mpi_module
     use global_data_module, only: second_order
     use euler_module, only: compute_cell_grad_from_nodal_grad
     implicit none

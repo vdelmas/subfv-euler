@@ -1,5 +1,5 @@
 module global_data_module
-  use precision_module
+  use subfv_precision_module
   implicit none
 
   integer, parameter :: mnmesh = 10 !Maximum number of sucessive meshes

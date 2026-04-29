@@ -1,6 +1,6 @@
 module euler_module
-  use precision_module
-  use mesh_module
+  use subfv_precision_module
+  use subfv_mesh_module
   implicit none
 contains
   subroutine compute_divF(mesh, sol, grad, divF)
@@ -785,7 +785,7 @@ contains
   subroutine init_sol(mesh, sol, me, num_procs, mpi_send_recv)
     use global_data_module
     use mpi
-    use mpi_module
+    use subfv_mpi_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -979,7 +979,7 @@ contains
     use global_data_module, &
       only: bc_style, mach_threshold, scheme, second_order, &
       exclude_bound_vert, low_dissip_switch, timedisc, local_time_step
-    use linear_solver_module
+    use subfv_linear_solver_module
     use mpi
     implicit none
 
@@ -1088,7 +1088,7 @@ contains
     use global_data_module, &
       only: bc_style, scheme, &
       exclude_bound_vert, timedisc, local_time_step
-    use linear_solver_module
+    use subfv_linear_solver_module
     use mpi
     implicit none
 
@@ -1482,7 +1482,7 @@ contains
 
   subroutine compute_lambdas_and_solve_nodal_velocity(mesh, id_vert, sol_w_lr, lambda, u_bars, u_node, p_bound)
     use global_data_module, only: gamma, lambda_l_eq_lambda_r, bc_style, boundary_2d
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -1650,7 +1650,7 @@ contains
 
   subroutine compute_lambdas_and_solve_nodal_velocity_iso(mesh, id_vert, sol_w_lr, lambda, u_bars, u_node, p_bound)
     use global_data_module, only: gamma, lambda_l_eq_lambda_r, bc_style, boundary_2d
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -1981,7 +1981,7 @@ contains
   end subroutine base_change
 
   subroutine compute_nodal_grad(mesh, id_vert, sol, nodal_grad)
-    use linear_solver_module, only: tensor_product, &
+    use subfv_linear_solver_module, only: tensor_product, &
       tensor_product_3,&
       pseudo_inverse_inplace_lapack, print_mat
     implicit none
@@ -2021,7 +2021,7 @@ contains
   end subroutine compute_nodal_grad
 
   subroutine compute_nodal_grad_cell_grad(mesh, id_vert, sol, grad, weight_sum)
-    use linear_solver_module, only: tensor_product, &
+    use subfv_linear_solver_module, only: tensor_product, &
       tensor_product_3,&
       pseudo_inverse_inplace_lapack, print_mat
     use global_data_module, only: method
@@ -2181,7 +2181,7 @@ contains
 
   subroutine compute_grad_least_squares(mesh, sol, grad)
     use global_data_module, only: scheme
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -2199,7 +2199,7 @@ contains
   end subroutine compute_grad_least_squares
 
   subroutine compute_cell_grad_least_squares(mesh, sol, i, grad)
-    use linear_solver_module, only: tensor_product, &
+    use subfv_linear_solver_module, only: tensor_product, &
       pseudo_inverse_inplace_lapack
     implicit none
 
@@ -2238,7 +2238,7 @@ contains
   end subroutine compute_cell_grad_least_squares
 
   function euler_flux(U)
-    use linear_solver_module, only: tensor_product
+    use subfv_linear_solver_module, only: tensor_product
     implicit none
 
     real(kind=DOUBLE), dimension(5), intent(in) :: U
@@ -2286,8 +2286,8 @@ contains
       num_procs, mpi_send_recv)
     use global_data_module, only: restart_iter, restart_time, restart_cpu_time
     use mpi
-    use mpi_module
-    use sparse_csr_linear_module, only: mpi_norm2
+    use subfv_mpi_module
+    use subfv_sparse_csr_linear_module, only: mpi_norm2
     implicit none
 
     type(mesh_type), intent(in) :: mesh
@@ -2441,7 +2441,7 @@ contains
 
   subroutine compute_lambdas_and_solve_nodal_pressure(mesh, id_vert, sol_w_lr, lambda, p_bars, p_node)
     use global_data_module, only: gamma, lambda_l_eq_lambda_r, bc_style
-    use linear_solver_module
+    use subfv_linear_solver_module
     implicit none
 
     type(mesh_type), intent(in) :: mesh
